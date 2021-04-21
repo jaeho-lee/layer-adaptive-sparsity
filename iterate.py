@@ -5,7 +5,7 @@ from tools import *
 """ ARGUMENT PARSING """
 parser = argparse.ArgumentParser()
 parser.add_argument('--seed', type=int, default=42, help='random seed')
-parser.add_argument('--cuda', type=int, help='cuda number')
+#parser.add_argument('--cuda', type=int, help='cuda number')
 parser.add_argument('--model', type=str, help='network')
 parser.add_argument('--pruner', type=str, help='pruning method')
 parser.add_argument('--iter_start', type=int, default=1, help='start iteration for pruning')
@@ -22,7 +22,7 @@ torch.cuda.manual_seed_all(args.seed)
 #torch.backends.cudnn.deterministic = True
 #torch.backends.cudnn.benchmark = False
 
-DEVICE = args.cuda
+DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 """ IMPORT LOADERS/MODELS/PRUNERS/TRAINERS"""
 model,amount_per_it,batch_size,opt_pre,opt_post = model_and_opt_loader(args.model,DEVICE)
